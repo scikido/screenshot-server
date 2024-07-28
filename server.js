@@ -12,7 +12,9 @@ app.get('/screenshot', async (req, res) => {
 
   let browser;
   try {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
     console.log("Screenshot is being captured of url: ", url);
@@ -25,8 +27,9 @@ app.get('/screenshot', async (req, res) => {
     if (browser) {
       await browser.close();
     }
-    console.error("the error is ",err);
+    console.log("Error capturing screenshot of url: ", err);
     res.status(500).send('Error capturing screenshot');
+    console.error(err);
   }
 });
 
