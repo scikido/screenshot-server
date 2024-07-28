@@ -25,7 +25,8 @@ app.get('/screenshot', async (req, res) => {
     if (browser) {
       await browser.close();
     }
-    res.status(500).send('Error capturing screenshot', err);
+    console.error("the error is ",err);
+    res.status(500).send('Error capturing screenshot');
   }
 });
 
