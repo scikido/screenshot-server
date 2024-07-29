@@ -1,8 +1,12 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+// Use the CORS middleware
+app.use(cors());
 
 app.get('/screenshot', async (req, res) => {
   const { url } = req.query;
