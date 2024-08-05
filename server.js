@@ -32,6 +32,11 @@ app.get('/screenshot', async (req, res) => {
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
+
+    // Emulate dark theme
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: 'dark' }
+    ]);
     await page.goto(url, { waitUntil: 'networkidle2' });
     console.log("Screenshot is being captured of url: ", url);
     const screenshot = await page.screenshot();
